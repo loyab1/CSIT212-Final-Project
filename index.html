@@ -25,23 +25,52 @@
             <p>Convert numbers between Base 2 and Decimal</p>
         </header>
 
-        <section class="calculator-card">
-            <div class="input-group">
-                <label for="binaryInput">Base 2 (Binary)</label>
-                <input type="text" id="binaryInput" placeholder="e.g. 1010" autocomplete="off">
-                <button id="btnToDecimal" class="btn">Convert to Decimal &darr;</button>
-            </div>
+        <div class="main-content">
+            <section class="calculator-card card">
+                <div class="input-group">
+                    <label for="binaryInput">Base 2 (Binary)</label>
+                    <input type="text" id="binaryInput" placeholder="e.g. 1010" autocomplete="off">
+                    <button id="btnToDecimal" class="btn">Convert to Decimal &darr;</button>
+                </div>
 
-            <div class="divider"></div>
+                <div class="divider"></div>
 
-            <div class="input-group">
-                <label for="decimalInput">Base 10 (Decimal)</label>
-                <input type="number" id="decimalInput" placeholder="e.g. 10" autocomplete="off">
-                <button id="btnToBinary" class="btn">Convert to Binary &uarr;</button>
-            </div>
-            
-            <div id="errorMessage" class="error-msg" hidden>Invalid input</div>
-        </section>
+                <div class="input-group">
+                    <label for="decimalInput">Base 10 (Decimal)</label>
+                    <input type="number" id="decimalInput" placeholder="e.g. 10" autocomplete="off">
+                    <button id="btnToBinary" class="btn">Convert to Binary &uarr;</button>
+                </div>
+                
+                <div id="errorMessage" class="error-msg" hidden>Invalid input</div>
+            </section>
+
+            <aside class="reference-table card">
+                <h3>Reference Guide</h3>
+                <table>
+                    <thead>
+                        <tr><th>Decimal</th><th>Binary</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>0</td><td>0000</td></tr>
+                        <tr><td>1</td><td>0001</td></tr>
+                        <tr><td>2</td><td>0010</td></tr>
+                        <tr><td>3</td><td>0011</td></tr>
+                        <tr><td>4</td><td>0100</td></tr>
+                        <tr><td>5</td><td>0101</td></tr>
+                        <tr><td>6</td><td>0110</td></tr>
+                        <tr><td>7</td><td>0111</td></tr>
+                        <tr><td>8</td><td>1000</td></tr>
+                        <tr><td>9</td><td>1001</td></tr>
+                        <tr><td>10</td><td>1010</td></tr>
+                        <tr><td>11</td><td>1011</td></tr>
+                        <tr><td>12</td><td>1100</td></tr>
+                        <tr><td>13</td><td>1101</td></tr>
+                        <tr><td>14</td><td>1110</td></tr>
+                        <tr><td>15</td><td>1111</td></tr>
+                    </tbody>
+                </table>
+            </aside>
+        </div>
     </main>
 
     <script src="script.js"></script>

@@ -26,6 +26,38 @@
             <p>Understanding fundamental logic gates: AND, OR, XOR, and NAND</p>
         </header>
 
+        <section class="interactive-logic card" style="margin-bottom: 2rem; text-align: center;">
+            <h2>Logic Gate Simulator</h2>
+            <div class="simulator-controls" style="display: flex; justify-content: center; gap: 2rem; align-items: center; margin-top: 1.5rem;">
+                
+                <div class="input-section">
+                    <label>Input A</label>
+                    <button id="btnInputA" class="toggle-btn" data-state="0">0</button>
+                </div>
+
+                <div class="gate-section">
+                    <label for="gateSelect">Gate</label>
+                    <select id="gateSelect" class="gate-select">
+                        <option value="AND">AND</option>
+                        <option value="OR">OR</option>
+                        <option value="XOR">XOR</option>
+                        <option value="NAND">NAND</option>
+                    </select>
+                </div>
+
+                <div class="input-section">
+                    <label>Input B</label>
+                    <button id="btnInputB" class="toggle-btn" data-state="0">0</button>
+                </div>
+
+                <div class="output-section">
+                    <label>Output</label>
+                    <div id="lightBulb" class="light-bulb off"></div>
+                </div>
+
+            </div>
+        </section>
+
         <section class="instructions-section">
             <div class="instructions-grid">
                 
@@ -96,5 +128,7 @@
             </div>
         </section>
     </main>
+
+    <script src="script.js"></script>
 </body>
 </html>

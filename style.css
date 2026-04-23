@@ -303,3 +303,70 @@ tbody tr:hover {
 .instruction-block li {
     margin-bottom: 0.5rem;
 }
+
+/* Logic Simulator */
+.interactive-logic h2 {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.simulator-controls {
+    flex-wrap: wrap;
+}
+
+.input-section, .gate-section, .output-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.input-section label, .gate-section label, .output-section label {
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.toggle-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid var(--border-color);
+    background-color: var(--bg-color);
+    font-size: 1.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--text-main);
+}
+
+.toggle-btn[data-state="1"] {
+    background-color: var(--accent-color);
+    color: #fff;
+    border-color: var(--accent-color);
+}
+
+.gate-select {
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    outline: none;
+    cursor: pointer;
+    background-color: var(--card-bg);
+}
+
+.light-bulb {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #e5e7eb;
+    border: 2px solid #d1d5db;
+    transition: all 0.3s ease;
+}
+
+.light-bulb.on {
+    background-color: #fde047;
+    border-color: #facc15;
+    box-shadow: 0 0 20px 5px rgba(250, 204, 21, 0.5);
+}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boolean Logic | CSIT 212 Final Project</title>
+    <meta name="description" content="Explanation of boolean logic gates: AND, OR, XOR, NAND.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">CSIT 212 Final Project</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Binary Calculator</a></li>
+            <li><a href="boolean-logic.html" class="active">Boolean Logic</a></li>
+            <li><a href="ai-prompts.html">AI Prompts</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <header class="header">
+            <h1>Boolean Logic</h1>
+            <p>Understanding fundamental logic gates: AND, OR, XOR, and NAND</p>
+        </header>
+
+        <section class="instructions-section">
+            <div class="instructions-grid">
+                
+                <div class="instruction-block card">
+                    <h3>AND Gate</h3>
+                    <p>The AND gate outputs true (1) only if <strong>both</strong> inputs are true.</p>
+                    <table>
+                        <thead>
+                            <tr><th>A</th><th>B</th><th>Output</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>0</td><td>0</td><td>0</td></tr>
+                            <tr><td>0</td><td>1</td><td>0</td></tr>
+                            <tr><td>1</td><td>0</td><td>0</td></tr>
+                            <tr><td>1</td><td>1</td><td>1</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="instruction-block card">
+                    <h3>OR Gate</h3>
+                    <p>The OR gate outputs true (1) if <strong>at least one</strong> input is true.</p>
+                    <table>
+                        <thead>
+                            <tr><th>A</th><th>B</th><th>Output</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>0</td><td>0</td><td>0</td></tr>
+                            <tr><td>0</td><td>1</td><td>1</td></tr>
+                            <tr><td>1</td><td>0</td><td>1</td></tr>
+                            <tr><td>1</td><td>1</td><td>1</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="instruction-block card">
+                    <h3>XOR Gate (Exclusive OR)</h3>
+                    <p>The XOR gate outputs true (1) if the inputs are <strong>different</strong>.</p>
+                    <table>
+                        <thead>
+                            <tr><th>A</th><th>B</th><th>Output</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>0</td><td>0</td><td>0</td></tr>
+                            <tr><td>0</td><td>1</td><td>1</td></tr>
+                            <tr><td>1</td><td>0</td><td>1</td></tr>
+                            <tr><td>1</td><td>1</td><td>0</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="instruction-block card">
+                    <h3>NAND Gate</h3>
+                    <p>The NAND gate is the inverse of AND. It outputs false (0) only if <strong>both</strong> inputs are true.</p>
+                    <table>
+                        <thead>
+                            <tr><th>A</th><th>B</th><th>Output</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>0</td><td>0</td><td>1</td></tr>
+                            <tr><td>0</td><td>1</td><td>1</td></tr>
+                            <tr><td>1</td><td>0</td><td>1</td></tr>
+                            <tr><td>1</td><td>1</td><td>0</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </section>
+    </main>
+</body>
+</html>

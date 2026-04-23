@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary Converter</title>
+    <meta name="description" content="A simple and minimalistic binary conversion calculator.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">Project 0.1</div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Calculator</a></li>
+            <li><a href="ai-prompts.html">AI Prompts</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <header class="header">
+            <h1>Binary Converter</h1>
+            <p>Convert numbers between Base 2 and Decimal</p>
+        </header>
+
+        <section class="calculator-card">
+            <div class="input-group">
+                <label for="binaryInput">Base 2 (Binary)</label>
+                <input type="text" id="binaryInput" placeholder="e.g. 1010" autocomplete="off">
+                <button id="btnToDecimal" class="btn">Convert to Decimal &darr;</button>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="input-group">
+                <label for="decimalInput">Base 10 (Decimal)</label>
+                <input type="number" id="decimalInput" placeholder="e.g. 10" autocomplete="off">
+                <button id="btnToBinary" class="btn">Convert to Binary &uarr;</button>
+            </div>
+            
+            <div id="errorMessage" class="error-msg" hidden>Invalid input</div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+/* visualizer.css */
+.visualizer-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.visualization-panel {
+    flex: 2;
+    min-width: 400px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.code-panel {
+    flex: 1;
+    min-width: 300px;
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+    border-radius: 8px;
+    padding: 1.5rem;
+    font-family: 'Consolas', 'Courier New', monospace;
+    overflow-x: auto;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    max-height: 500px;
+}
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.controls select, .controls button {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: var(--bg-color);
+    font-family: inherit;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.controls button {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+}
+
+.controls button:hover:not(:disabled) {
+    opacity: 0.9;
+}
+
+.controls button:disabled {
+    background-color: #9ca3af;
+    cursor: not-allowed;
+}
+
+.array-container {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    height: 300px;
+    gap: 3px;
+    padding: 1rem;
+    background-color: var(--bg-color);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.array-bar {
+    width: 20px;
+    background-color: var(--accent-color);
+    transition: height 0.1s ease, background-color 0.1s ease;
+    border-radius: 2px 2px 0 0;
+}
+
+.code-line {
+    padding: 2px 8px;
+    border-radius: 3px;
+    white-space: pre;
+    transition: background-color 0.1s ease;
+}
+
+.code-line.active {
+    background-color: rgba(255, 255, 0, 0.25);
+    font-weight: bold;
+    color: #fff;
+    border-left: 3px solid #fbbf24;
+}

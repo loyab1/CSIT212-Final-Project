@@ -72,6 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
         header.className = "node-header";
         header.innerText = GATE_TYPES[node.type].label;
         header.onmousedown = (e) => startDrag(e, node);
+        header.addEventListener('touchstart', (e) => startDrag(e, node), {passive: false});
         el.appendChild(header);
 
         // Body
@@ -89,6 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
             port.dataset.type = 'in';
             
             port.onmousedown = (e) => handlePortClick(e, port);
+            port.addEventListener('touchstart', (e) => { if(e.type==='touchstart') e.preventDefault(); handlePortClick(e, port); }, {passive: false});
             port.onmouseup = (e) => handlePortDrop(e, port);
             
             inContainer.appendChild(port);
@@ -128,6 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
             port.dataset.type = 'out';
             
             port.onmousedown = (e) => handlePortClick(e, port);
+            port.addEventListener('touchstart', (e) => { if(e.type==='touchstart') e.preventDefault(); handlePortClick(e, port); }, {passive: false});
             port.onmouseup = (e) => handlePortDrop(e, port);
             
             outContainer.appendChild(port);
@@ -160,23 +163,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // --- Drag & Drop ---
     function startDrag(e, node) {
-        if(e.button !== 0) return;
+        if (e.type === 'mousedown' && e.button !== 0) return;
         draggedNode = node;
         const rect = node.element.getBoundingClientRect();
-        const workspaceRect = workspace.getBoundingClientRect();
-        offsetX = e.clientX - rect.left;
-        offsetY = e.clientY - rect.top;
+        const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+        
+        offsetX = clientX - rect.left;
+        offsetY = clientY - rect.top;
         node.element.classList.add("dragging");
     }
 
-    workspace.addEventListener("mousemove", (e) => {
+    function handleMove(e) {
         const workspaceRect = workspace.getBoundingClientRect();
+        const clientX = e.type === 'touchmove' || e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type === 'touchmove' || e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
 
         if (draggedNode) {
-            let x = e.clientX - workspaceRect.left - offsetX;
-            let y = e.clientY - workspaceRect.top - offsetY;
+            if (e.type === 'touchmove') e.preventDefault();
+            let x = clientX - workspaceRect.left - offsetX;
+            let y = clientY - workspaceRect.top - offsetY;
             
-            // Constrain
             x = Math.max(0, Math.min(x, workspaceRect.width - draggedNode.element.offsetWidth));
             y = Math.max(0, Math.min(y, workspaceRect.height - draggedNode.element.offsetHeight));
             
@@ -188,24 +195,34 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (isWiring && tempWire) {
+            if (e.type === 'touchmove') e.preventDefault();
             const startPortEl = getPortElement(wireStartPort.nodeId, wireStartPort.type, wireStartPort.portIdx);
             if(startPortEl) {
                 const startPos = getPortCenter(startPortEl);
                 const endPos = { 
-                    x: e.clientX - workspaceRect.left, 
-                    y: e.clientY - workspaceRect.top 
+                    x: clientX - workspaceRect.left, 
+                    y: clientY - workspaceRect.top 
                 };
                 drawBezier(tempWire, startPos, endPos, false);
             }
         }
-    });
+    }
 
-    window.addEventListener("mouseup", () => {
+    function handleUp(e) {
         if (draggedNode) {
             draggedNode.element.classList.remove("dragging");
             draggedNode = null;
         }
         if (isWiring) {
+            if (e.type === 'touchend' && e.changedTouches && e.changedTouches.length > 0) {
+                const clientX = e.changedTouches[0].clientX;
+                const clientY = e.changedTouches[0].clientY;
+                const elUnder = document.elementFromPoint(clientX, clientY);
+                if (elUnder && elUnder.classList.contains('port') && elUnder.dataset.type === 'in') {
+                    handlePortDrop({stopPropagation: () => {}}, elUnder);
+                }
+            }
+
             isWiring = false;
             wireStartPort = null;
             if (tempWire) {
@@ -213,13 +230,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 tempWire = null;
             }
         }
-    });
+    }
+
+    workspace.addEventListener("mousemove", handleMove);
+    workspace.addEventListener("touchmove", handleMove, {passive: false});
+    window.addEventListener("mouseup", handleUp);
+    window.addEventListener("touchend", handleUp);
 
     // --- Wiring logic ---
     function handlePortClick(e, portEl) {
-        e.stopPropagation();
+        if(e.stopPropagation) e.stopPropagation();
         const type = portEl.dataset.type;
-        // Only allow starting wire from OUT port
         if (type !== 'out') return;
 
         isWiring = true;
@@ -229,27 +250,23 @@ document.addEventListener("DOMContentLoaded", () => {
             portIdx: parseInt(portEl.dataset.portIdx)
         };
 
-        // Create temp SVG line
         tempWire = document.createElementNS("http://www.w3.org/2000/svg", "path");
         tempWire.setAttribute("class", "wire");
         wireCanvas.appendChild(tempWire);
     }
 
     function handlePortDrop(e, portEl) {
-        e.stopPropagation();
+        if(e.stopPropagation) e.stopPropagation();
         if(!isWiring || !wireStartPort) return;
         
         const type = portEl.dataset.type;
-        // Must connect OUT to IN
         if (type !== 'in') return;
         
         const targetNodeId = portEl.dataset.nodeId;
         const targetPortIdx = parseInt(portEl.dataset.portIdx);
 
-        // Prevent self-connection
         if(wireStartPort.nodeId === targetNodeId) return;
 
-        // Prevent duplicate or existing inputs on the same IN port
         wires = wires.filter(w => !(w.to.nodeId === targetNodeId && w.to.portIdx === targetPortIdx));
 
         wires.push({
@@ -261,7 +278,7 @@ document.addEventListener("DOMContentLoaded", () => {
         evaluateCircuit();
     }
 
-    // --- SVG rendering ---
+// --- SVG rendering ---
     function getPortElement(nodeId, type, portIdx) {
         const nodeEl = document.getElementById(nodeId);
         if(!nodeEl) return null;

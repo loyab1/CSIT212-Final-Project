@@ -27,6 +27,31 @@
             <p>Convert numbers between Base 2 and Decimal</p>
         </header>
 
+        <section class="instructions-section card" style="margin-bottom: 2.5rem;">
+            <h2>How to Convert</h2>
+            <div class="instructions-grid">
+                <div class="instruction-block">
+                    <h3>Binary to Decimal</h3>
+                    <p>To convert from Base 2 to Base 10:</p>
+                    <ol>
+                        <li>Write down the binary number.</li>
+                        <li>Multiply each bit by 2 raised to the power of its position, starting from 0 on the far right.</li>
+                        <li>Add all the calculated values together to get the final decimal number.</li>
+                    </ol>
+                </div>
+                <div class="instruction-block">
+                    <h3>Decimal to Binary</h3>
+                    <p>To convert from Base 10 to Base 2:</p>
+                    <ol>
+                        <li>Divide the decimal number by 2.</li>
+                        <li>Write down the remainder (which will be 0 or 1).</li>
+                        <li>Divide the resulting quotient by 2 again and write down the next remainder.</li>
+                        <li>Repeat this process until the quotient is 0. The binary number is all the remainders read in reverse order (bottom to top).</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
         <div class="main-content">
             <section class="calculator-card card">
                 <div class="input-group">
@@ -74,30 +99,7 @@
             </aside>
         </div>
 
-        <section class="instructions-section card">
-            <h2>How to Convert</h2>
-            <div class="instructions-grid">
-                <div class="instruction-block">
-                    <h3>Binary to Decimal</h3>
-                    <p>To convert from Base 2 to Base 10:</p>
-                    <ol>
-                        <li>Write down the binary number.</li>
-                        <li>Multiply each bit by 2 raised to the power of its position, starting from 0 on the far right.</li>
-                        <li>Add all the calculated values together to get the final decimal number.</li>
-                    </ol>
-                </div>
-                <div class="instruction-block">
-                    <h3>Decimal to Binary</h3>
-                    <p>To convert from Base 10 to Base 2:</p>
-                    <ol>
-                        <li>Divide the decimal number by 2.</li>
-                        <li>Write down the remainder (which will be 0 or 1).</li>
-                        <li>Divide the resulting quotient by 2 again and write down the next remainder.</li>
-                        <li>Repeat this process until the quotient is 0. The binary number is all the remainders read in reverse order (bottom to top).</li>
-                    </ol>
-                </div>
-            </div>
-        </section>
+        
     </main>
 
     <script src="script.js"></script>

@@ -29,7 +29,7 @@ body {
 /* Navigation */
 .navbar {
     width: 100%;
-    max-width: 800px;
+    max-width: 1400px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -41,12 +41,18 @@ body {
     font-weight: 600;
     font-size: 1.25rem;
     color: var(--text-main);
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.nav-brand:hover {
+    opacity: 0.8;
 }
 
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 1.5rem;
+    gap: 2rem;
 }
 
 .nav-links a {

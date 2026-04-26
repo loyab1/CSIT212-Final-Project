@@ -1,0 +1,204 @@
+/* circuit.css */
+.circuit-layout {
+    display: flex;
+    flex-direction: column;
+    height: 70vh;
+    min-height: 500px;
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.circuit-toolbar {
+    padding: 1rem;
+    background: #fff;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    gap: 0.75rem;
+    z-index: 10;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.circuit-workspace {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    /* Grid background */
+    background-image: 
+        linear-gradient(to right, #e2e8f0 1px, transparent 1px),
+        linear-gradient(to bottom, #e2e8f0 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+#wireCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.wire {
+    fill: none;
+    stroke: #94a3b8;
+    stroke-width: 4px;
+    stroke-linecap: round;
+    transition: stroke 0.1s ease;
+}
+
+.wire.active {
+    stroke: #facc15; /* yellow when true */
+    filter: drop-shadow(0 0 4px rgba(250, 204, 21, 0.6));
+}
+
+.circuit-node {
+    position: absolute;
+    background: #fff;
+    border: 2px solid #cbd5e1;
+    border-radius: 8px;
+    width: 90px;
+    min-height: 50px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    z-index: 5;
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.circuit-node.dragging {
+    opacity: 0.9;
+    z-index: 100;
+}
+
+.node-header {
+    background: #e2e8f0;
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-align: center;
+    border-bottom: 1px solid #cbd5e1;
+    cursor: grab;
+    border-radius: 6px 6px 0 0;
+}
+.node-header:active {
+    cursor: grabbing;
+}
+
+.node-body {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    position: relative;
+}
+
+.port-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+    gap: 8px;
+}
+
+.port {
+    width: 14px;
+    height: 14px;
+    background: #fff;
+    border: 2px solid #64748b;
+    border-radius: 50%;
+    cursor: crosshair;
+    position: relative;
+    z-index: 10;
+}
+
+.port:hover {
+    background: #cbd5e1;
+    transform: scale(1.2);
+}
+
+.port.in-port {
+    margin-left: -7px;
+}
+
+.port.out-port {
+    margin-right: -7px;
+}
+
+.node-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-toggle {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid #cbd5e1;
+    background: #fff;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-toggle.active {
+    background: var(--accent-color);
+    color: white;
+    border-color: var(--accent-hover);
+}
+
+.output-bulb {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #e2e8f0;
+    border: 2px solid #cbd5e1;
+    transition: all 0.1s ease;
+}
+
+.output-bulb.active {
+    background: #fde047;
+    border-color: #eab308;
+    box-shadow: 0 0 15px rgba(250, 204, 21, 0.8);
+}
+
+.toolbar-btn {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--bg-color);
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+.toolbar-btn:hover { background: #e2e8f0; }
+
+.trash-btn {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 18px;
+    height: 18px;
+    background: #ef4444;
+    color: white;
+    border-radius: 50%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 10px;
+    line-height: 1;
+}
+.circuit-node:hover .trash-btn {
+    display: flex;
+}

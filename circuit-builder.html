@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logic Circuit Builder | CSIT 212 Final Project</title>
+    <meta name="description" content="Interactive visual builder for boolean logic circuits.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="circuit.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">CSIT 212 Final Project</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Binary Calculator</a></li>
+            <li><a href="boolean-logic.html">Boolean Logic</a></li>
+            <li><a href="algorithm-visualizer.html">Algorithms</a></li>
+            <li><a href="circuit-builder.html" class="active">Circuit Builder</a></li>
+            <li><a href="ai-prompts.html">AI Prompts</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <header class="header">
+            <h1>Logic Circuit Builder</h1>
+            <p>Drag and drop nodes to build custom logic circuits</p>
+        </header>
+
+        <section class="instructions-section card" style="margin-bottom: 2.5rem;">
+            <h2>How to Build a Circuit</h2>
+            <div class="instructions-grid">
+                <div class="instruction-block">
+                    <ol>
+                        <li><strong>Add Nodes:</strong> Click the buttons in the toolbar to spawn Input nodes, Logic Gates, or Output bulbs.</li>
+                        <li><strong>Connect:</strong> Click and drag from an Output port (right side) to an Input port (left side) to wire them together.</li>
+                        <li><strong>Simulate:</strong> Click on the circular <code>Input</code> nodes to toggle them between 0 and 1. The circuit will evaluate automatically!</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <section class="circuit-layout">
+            <div class="circuit-toolbar">
+                <button class="toolbar-btn" id="addInput">Add Input</button>
+                <button class="toolbar-btn" id="addOutput">Add Output</button>
+                <button class="toolbar-btn" id="addAND">AND</button>
+                <button class="toolbar-btn" id="addOR">OR</button>
+                <button class="toolbar-btn" id="addXOR">XOR</button>
+                <button class="toolbar-btn" id="addNAND">NAND</button>
+                <button class="toolbar-btn" id="addNOT">NOT</button>
+                <div style="flex:1"></div>
+                <button class="toolbar-btn" style="background:#ef4444; color:white; border:none;" id="clearWorkspace">Clear</button>
+            </div>
+            <div class="circuit-workspace" id="workspace">
+                <svg id="wireCanvas"></svg>
+            </div>
+        </section>
+    </main>
+
+    <script src="circuit.js"></script>
+</body>
+</html>

@@ -70,6 +70,96 @@ document.addEventListener("DOMContentLoaded", () => {
         "}"
     ];
 
+    const javaCodeInsertion = [
+        "void insertionSort(int arr[]) {",
+        "    int n = arr.length;",
+        "    for (int i = 1; i < n; ++i) {",
+        "        int key = arr[i];",
+        "        int j = i - 1;",
+        "        while (j >= 0 && arr[j] > key) {",
+        "            arr[j + 1] = arr[j];",
+        "            j = j - 1;",
+        "        }",
+        "        arr[j + 1] = key;",
+        "    }",
+        "}"
+    ];
+
+    const javaCodeHeap = [
+        "void heapSort(int arr[]) {",
+        "    int n = arr.length;",
+        "    for (int i = n / 2 - 1; i >= 0; i--)",
+        "        heapify(arr, n, i);",
+        "    for (int i = n - 1; i > 0; i--) {",
+        "        int temp = arr[0]; arr[0] = arr[i]; arr[i] = temp;",
+        "        heapify(arr, i, 0);",
+        "    }",
+        "}",
+        "void heapify(int arr[], int n, int i) {",
+        "    int largest = i, l = 2 * i + 1, r = 2 * i + 2;",
+        "    if (l < n && arr[l] > arr[largest]) largest = l;",
+        "    if (r < n && arr[r] > arr[largest]) largest = r;",
+        "    if (largest != i) {",
+        "        int swap = arr[i]; arr[i] = arr[largest]; arr[largest] = swap;",
+        "        heapify(arr, n, largest);",
+        "    }",
+        "}"
+    ];
+
+    const javaCodeCounting = [
+        "void countingSort(int arr[]) {",
+        "    int n = arr.length;",
+        "    int max = arr[0];",
+        "    for (int i = 1; i < n; i++)",
+        "        if (arr[i] > max) max = arr[i];",
+        "    int[] count = new int[max + 1];",
+        "    for (int i = 0; i < n; i++)",
+        "        count[arr[i]]++;",
+        "    for (int i = 1; i <= max; i++)",
+        "        count[i] += count[i - 1];",
+        "    int[] output = new int[n];",
+        "    for (int i = n - 1; i >= 0; i--) {",
+        "        output[count[arr[i]] - 1] = arr[i];",
+        "        count[arr[i]]--;",
+        "    }",
+        "    for (int i = 0; i < n; i++)",
+        "        arr[i] = output[i];",
+        "}"
+    ];
+
+    const algorithmDetailsInfo = {
+        merge: {
+            title: "Merge Sort",
+            description: "Merge Sort is a Divide-and-Conquer algorithm. It divides the input array into two halves, calls itself for the two halves, and then merges the two sorted halves.",
+            timeComplexity: "O(n log n) - It consistently divides the array in half and merges.",
+            useCases: "Used in e-commerce applications for sorting products, or in Java's Collections.sort() for object arrays because it is a stable sort."
+        },
+        quick: {
+            title: "Quick Sort",
+            description: "Quick Sort is a Divide-and-Conquer algorithm. It picks an element as a pivot and partitions the given array around the picked pivot.",
+            timeComplexity: "O(n log n) average case, but O(n²) in the worst case. Best in practice for arrays.",
+            useCases: "Widely used in language standard libraries (like C++ std::sort or Java Arrays.sort for primitives) because of its fast in-place memory performance."
+        },
+        insertion: {
+            title: "Insertion Sort",
+            description: "Insertion Sort builds the final sorted array one item at a time. It works the way you might sort playing cards in your hands.",
+            timeComplexity: "O(n²) - It compares elements and shifts them to the right.",
+            useCases: "Very fast for small datasets (often used as the base case for Quick Sort or Merge Sort algorithms) and for arrays that are already mostly sorted."
+        },
+        heap: {
+            title: "Heap Sort",
+            description: "Heap Sort is a comparison-based sorting technique based on a Binary Heap data structure. It is similar to selection sort where we first find the maximum element and place it at the end.",
+            timeComplexity: "O(n log n) - It builds a max heap and extracts the max element n times.",
+            useCases: "Useful in systems concerned with security or embedded systems where consistent O(n log n) memory-in-place performance is strictly required."
+        },
+        counting: {
+            title: "Counting Sort",
+            description: "Counting Sort is an integer sorting algorithm that operates by counting the number of objects that possess distinct key values, and calculating positions.",
+            timeComplexity: "O(n + k) where n is the number of elements and k is the range of input.",
+            useCases: "Extremely fast for sorting arrays where the range of integers is relatively small, such as sorting pixels by color values."
+        }
+    };
+
     function generateArray(size = 20) {
         array = [];
         for (let i = 0; i < size; i++) {
@@ -186,11 +276,103 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         pushStep(arr, -1); // Done
     }
+
+    function runInsertionSort() {
+        let arr = [...array];
+        steps = [];
+        pushStep(arr, 0);
+        let n = arr.length; pushStep(arr, 1);
+        for (let i = 1; i < n; ++i) {
+            pushStep(arr, 2, [i]);
+            let key = arr[i]; pushStep(arr, 3, [i]);
+            let j = i - 1; pushStep(arr, 4, [j]);
+            while (j >= 0 && arr[j] > key) {
+                pushStep(arr, 5, [j]);
+                arr[j + 1] = arr[j]; pushStep(arr, 6, [j + 1, j]);
+                j = j - 1; pushStep(arr, 7, [j]);
+            }
+            pushStep(arr, 5, [j]);
+            arr[j + 1] = key; pushStep(arr, 9, [j + 1]);
+        }
+        pushStep(arr, 11);
+        pushStep(arr, -1); // Done
+    }
+
+    function runHeapSort() {
+        let arr = [...array];
+        steps = [];
+
+        function heapify(n, i) {
+            pushStep(arr, 9, [i]);
+            let largest = i, l = 2 * i + 1, r = 2 * i + 2; pushStep(arr, 10, [largest, l, r]);
+            if (l < n && arr[l] > arr[largest]) largest = l; pushStep(arr, 11, [l, largest]);
+            if (r < n && arr[r] > arr[largest]) largest = r; pushStep(arr, 12, [r, largest]);
+            pushStep(arr, 13, [largest]);
+            if (largest != i) {
+                let swap = arr[i]; arr[i] = arr[largest]; arr[largest] = swap; pushStep(arr, 14, [i, largest]);
+                heapify(n, largest); pushStep(arr, 15);
+            }
+            pushStep(arr, 16);
+        }
+
+        pushStep(arr, 0);
+        let n = arr.length; pushStep(arr, 1);
+        for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
+            pushStep(arr, 2, [i]);
+            heapify(n, i); pushStep(arr, 3, [i]);
+        }
+        for (let i = n - 1; i > 0; i--) {
+            pushStep(arr, 4, [i]);
+            let temp = arr[0]; arr[0] = arr[i]; arr[i] = temp; pushStep(arr, 5, [0, i]);
+            heapify(i, 0); pushStep(arr, 6);
+        }
+        pushStep(arr, 8);
+        pushStep(arr, -1); // Done
+    }
+
+    function runCountingSort() {
+        let arr = [...array];
+        steps = [];
+        pushStep(arr, 0);
+        let n = arr.length; pushStep(arr, 1);
+        let max = arr[0]; pushStep(arr, 2);
+        for (let i = 1; i < n; i++) {
+            pushStep(arr, 3, [i]);
+            if (arr[i] > max) max = arr[i]; pushStep(arr, 4, [i]);
+        }
+        let count = new Array(max + 1).fill(0); pushStep(arr, 5);
+        for (let i = 0; i < n; i++) {
+            pushStep(arr, 6, [i]);
+            count[arr[i]]++; pushStep(arr, 7, [i]);
+        }
+        for (let i = 1; i <= max; i++) {
+            pushStep(arr, 8);
+            count[i] += count[i - 1]; pushStep(arr, 9);
+        }
+        let output = new Array(n); pushStep(arr, 10);
+        for (let i = n - 1; i >= 0; i--) {
+            pushStep(arr, 11, [i]);
+            output[count[arr[i]] - 1] = arr[i]; pushStep(arr, 12, [i]);
+            count[arr[i]]--; pushStep(arr, 13, [i]);
+        }
+        for (let i = 0; i < n; i++) {
+            pushStep(arr, 15, [i]);
+            arr[i] = output[i]; pushStep(arr, 16, [i]);
+        }
+        pushStep(arr, 18);
+        pushStep(arr, -1); // Done
+    }
     // --- END ALGORITHMS ---
 
     function renderCode() {
         const algo = algoSelect.value;
-        const codeLines = algo === 'merge' ? javaCodeMerge : javaCodeQuick;
+        let codeLines = [];
+        if (algo === 'merge') codeLines = javaCodeMerge;
+        else if (algo === 'quick') codeLines = javaCodeQuick;
+        else if (algo === 'insertion') codeLines = javaCodeInsertion;
+        else if (algo === 'heap') codeLines = javaCodeHeap;
+        else if (algo === 'counting') codeLines = javaCodeCounting;
+        
         codeContainer.innerHTML = '';
         codeLines.forEach((line, index) => {
             const div = document.createElement("div");
@@ -199,6 +381,17 @@ document.addEventListener("DOMContentLoaded", () => {
             div.textContent = line;
             codeContainer.appendChild(div);
         });
+
+        const details = algorithmDetailsInfo[algo];
+        const detailsContainer = document.getElementById("algorithmDetails");
+        if (details && detailsContainer) {
+            detailsContainer.innerHTML = `
+                <h2 style="margin-bottom: 1rem;">${details.title}</h2>
+                <p style="margin-bottom: 0.5rem; line-height: 1.5;"><strong>What it is & How it works:</strong> ${details.description}</p>
+                <p style="margin-bottom: 0.5rem; line-height: 1.5;"><strong>Time Complexity:</strong> ${details.timeComplexity}</p>
+                <p style="line-height: 1.5;"><strong>Real World Use Cases:</strong> ${details.useCases}</p>
+            `;
+        }
     }
 
     function renderStep() {
@@ -223,8 +416,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const activeLine = document.getElementById(`code-line-${step.lineId}`);
             if (activeLine) {
                 activeLine.classList.add("active");
-                // Scroll into view safely
-                activeLine.scrollIntoView({ behavior: "smooth", block: "nearest" });
             }
         }
 
@@ -239,11 +430,11 @@ document.addEventListener("DOMContentLoaded", () => {
         stopPlay();
         currentStep = 0;
         renderCode();
-        if (algoSelect.value === 'merge') {
-            runMergeSort();
-        } else {
-            runQuickSort();
-        }
+        if (algoSelect.value === 'merge') runMergeSort();
+        else if (algoSelect.value === 'quick') runQuickSort();
+        else if (algoSelect.value === 'insertion') runInsertionSort();
+        else if (algoSelect.value === 'heap') runHeapSort();
+        else if (algoSelect.value === 'counting') runCountingSort();
         renderStep();
     }
 

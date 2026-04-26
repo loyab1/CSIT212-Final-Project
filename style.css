@@ -64,7 +64,7 @@ body {
 /* Layout */
 .container {
     width: 100%;
-    max-width: 1000px;
+    max-width: 1400px;
     padding: 2rem;
     flex: 1;
 }

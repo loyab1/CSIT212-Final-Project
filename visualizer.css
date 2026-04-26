@@ -19,13 +19,13 @@
 
 .code-panel {
     flex: 1;
-    min-width: 300px;
+    min-width: 600px;
     background-color: #1e1e1e;
     color: #d4d4d4;
     border-radius: 8px;
     padding: 1.5rem;
     font-family: 'Consolas', 'Courier New', monospace;
-    overflow-x: auto;
+    overflow-x: visible;
     font-size: 0.95rem;
     line-height: 1.4;
 }

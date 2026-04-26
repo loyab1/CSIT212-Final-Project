@@ -370,3 +370,31 @@ tbody tr:hover {
     border-color: #facc15;
     box-shadow: 0 0 20px 5px rgba(250, 204, 21, 0.5);
 }
+
+/* Mobile Responsiveness */
+@media screen and (max-width: 768px) {
+    .nav-links {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: center;
+        margin-top: 1rem;
+    }
+    
+    .navbar {
+        flex-direction: column;
+        padding: 1rem;
+    }
+    
+    .header h1 {
+        font-size: 2rem;
+    }
+    
+    .main-content, .instructions-grid {
+        flex-direction: column;
+    }
+
+    .calculator-card, .reference-table, .instruction-block {
+        width: 100%;
+        min-width: unset;
+    }
+}

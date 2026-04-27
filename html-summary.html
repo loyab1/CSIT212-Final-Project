@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HTML Summary - CSIT 212 Final Project</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <nav class="navbar">
@@ -62,6 +61,16 @@
                     <li><code>&lt;section&gt;</code> and <code>&lt;article&gt;</code>: We used these to logically group the algorithm descriptions and the logic gate truth tables.</li>
                 </ul>
                 <p>By using semantic HTML, our code is cleaner, easier to read, and better for Search Engine Optimization (SEO).</p>
+            </article>
+
+            <article class="card">
+                <h2>Native Dropdowns and Future-Proofing</h2>
+                <p>In basic HTML, you can create fully functional dropdown menus without writing a single line of CSS or JavaScript. There are two primary native tags for this:</p>
+                <ul>
+                    <li><strong>The Form Dropdown (<code>&lt;select&gt;</code>)</strong>: Used when you want a user to pick an option (like choosing a language or country). It works completely out of the box and natively adapts to mobile device UI (like the iOS scrolling wheel).</li>
+                    <li><strong>The Expandable Menu (<code>&lt;details&gt;</code> and <code>&lt;summary&gt;</code>)</strong>: Used to create a native "click to expand" widget, perfect for FAQs or simple navigation menus. Clicking the summary text drops down the nested content.</li>
+                </ul>
+                <p><strong>Are these future-proof for CSS and JS?</strong> Yes! In fact, native HTML elements are the <em>most</em> future-proof choice you can make. Because they are built directly into web browsers, they are guaranteed to be fully accessible for screen-readers and perform perfectly on any new device. Once you establish this strong, semantic HTML foundation, you can safely layer CSS on top to make them beautiful, and attach JavaScript to add complex behaviors, without worrying about the core functionality breaking.</p>
             </article>
         </section>
     </main>

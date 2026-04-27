@@ -121,3 +121,25 @@
         align-items: stretch;
     }
 }
+
+.step-details-card h3 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+    color: var(--accent-color);
+}
+
+.variable-watch {
+    border-top: 1px dashed var(--border-color);
+    padding-top: 1rem;
+}
+
+#variableList div {
+    font-size: 0.9rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+#explanationText {
+    min-height: 3rem;
+}

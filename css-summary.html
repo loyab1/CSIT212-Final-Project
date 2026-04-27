@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Summary - CSIT 212 Final Project</title>
+        <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand">CSIT 212 Final Project</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Binary Calculator</a></li>
+            <li><a href="boolean-logic.html">Boolean Logic</a></li>
+            <li><a href="algorithm-visualizer.html">Algorithms</a></li>
+            <li><a href="circuit-builder.html">Circuit Builder</a></li>
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">Languages ▼</a>
+                <div class="dropdown-content">
+                    <a href="html-summary.html">HTML</a>
+                    <a href="css-summary.html">CSS</a>
+                    <a href="js-summary.html">JavaScript</a>
+                    <a href="python-summary.html">Python</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <header class="header">
+            <h1>CSS: Styling the Experience</h1>
+            <p>CSS (Cascading Style Sheets) is the paint, interior design, and architecture that makes our raw HTML look beautiful and function responsively on any screen size.</p>
+        </header>
+
+        <section class="educational-content">
+            <article class="card" style="margin-bottom: 2rem;">
+                <h2>What is CSS?</h2>
+                <p>If HTML is the skeleton, CSS is the skin and clothing. CSS uses "Selectors" to target specific HTML tags, classes, or IDs, and applies visual rules to them.</p>
+                <div class="code-snippet">
+                    <code>.card {</code><br>
+                    <code>&nbsp;&nbsp;background-color: white;</code><br>
+                    <code>&nbsp;&nbsp;border-radius: 12px;</code><br>
+                    <code>}</code>
+                </div>
+                <p>In the example above, the dot (<code>.</code>) means we are targeting a "Class". Any HTML element with <code>class="card"</code> will instantly receive a white background and softly rounded corners.</p>
+            </article>
+
+            <article class="card" style="margin-bottom: 2rem;">
+                <h2>CSS Variables (Custom Properties)</h2>
+                <p>At the very top of our `style.css` file, you might notice variables that look like this: <code>--bg-color: #f8fafc;</code>. CSS Variables allow us to define our color palette exactly once. If we ever want to build a "Dark Mode", we don't have to change the color on 100 different lines of code; we simply change the variable at the top, and the entire website updates instantly!</p>
+            </article>
+
+            <article class="card" style="margin-bottom: 2rem;">
+                <h2>Flexbox and CSS Grid</h2>
+                <p>Centering items on a webpage used to be notoriously difficult. We solved this by using two modern CSS layout modules:</p>
+                <ul>
+                    <li><strong>Flexbox (<code>display: flex;</code>)</strong>: Used to align items in a single row or column. We used Flexbox to perfectly space out the links in our top Navigation Bar.</li>
+                    <li><strong>CSS Grid (<code>display: grid;</code>)</strong>: Used for complex two-dimensional layouts. We used Grid on the Circuit Builder to create the beautiful dotted workspace background, and on the Boolean Logic page to organize the Truth Tables neatly.</li>
+                </ul>
+            </article>
+
+            <article class="card">
+                <h2>Mobile Responsiveness (Media Queries)</h2>
+                <p>A website needs to look good on a 27-inch monitor AND a 5-inch smartphone. To achieve this, we used <strong>Media Queries</strong>.</p>
+                <div class="code-snippet">
+                    <code>@media screen and (max-width: 768px) {</code><br>
+                    <code>&nbsp;&nbsp;/* Mobile styles go here */</code><br>
+                    <code>}</code>
+                </div>
+                <p>This code tells the browser: "If the screen width is 768 pixels or smaller, apply these new rules." We used this to automatically stack our side-by-side flex layouts into vertical columns so that users don't have to zoom in on their phones!</p>
+            </article>
+        </section>
+    </main>
+</body>
+</html>

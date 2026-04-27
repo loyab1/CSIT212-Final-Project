@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Summary - CSIT 212 Final Project</title>
+        <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand">CSIT 212 Final Project</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Binary Calculator</a></li>
+            <li><a href="boolean-logic.html">Boolean Logic</a></li>
+            <li><a href="algorithm-visualizer.html">Algorithms</a></li>
+            <li><a href="circuit-builder.html">Circuit Builder</a></li>
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">Languages ▼</a>
+                <div class="dropdown-content">
+                    <a href="html-summary.html">HTML</a>
+                    <a href="css-summary.html">CSS</a>
+                    <a href="js-summary.html">JavaScript</a>
+                    <a href="python-summary.html">Python</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <header class="header">
+            <h1>Python: The Automation Assistant</h1>
+            <p>While HTML, CSS, and JavaScript run directly inside the user's web browser (the "Frontend"), Python is a powerful scripting language that we used behind the scenes (the "Backend" or Development Environment) to automate tedious tasks while building this project!</p>
+        </header>
+
+        <section class="educational-content">
+            <article class="card" style="margin-bottom: 2rem;">
+                <h2>What is Python Used For Here?</h2>
+                <p>Imagine needing to update the top navigation bar to add a new link. Doing it by hand means opening 8 different HTML files and carefully copying and pasting the code without making a mistake. Instead of doing it manually, we wrote Python scripts to act as our robotic assistant, automatically editing all 8 files in less than a second!</p>
+            </article>
+
+            <article class="card" style="margin-bottom: 2rem;">
+                <h2>File I/O (Input / Output)</h2>
+                <p>One of Python's greatest strengths is reading and writing files on the computer's hard drive.</p>
+                <div class="code-snippet">
+                    <code>with open("index.html", "r") as f:</code><br>
+                    <code>&nbsp;&nbsp;content = f.read()</code><br>
+                    <code># Modify the content...</code><br>
+                    <code>with open("index.html", "w") as f:</code><br>
+                    <code>&nbsp;&nbsp;f.write(content)</code>
+                </div>
+                <p>In this code, we instruct Python to <strong>Open</strong> a file. The <code>"r"</code> stands for "Read Mode", which pulls the HTML code into a string variable. After we change the string, we open the file again in <code>"w"</code> ("Write Mode") and overwrite the old file with our new updates.</p>
+            </article>
+
+            <article class="card" style="margin-bottom: 2rem;">
+                <h2>Libraries and Glob</h2>
+                <p>Python has massive collections of pre-written code called <strong>Libraries</strong> that you can <code>import</code> to save time.</p>
+                <p>We used the <code>glob</code> library to easily find every single HTML file in our project folder simultaneously. By writing <code>glob.glob("*.html")</code>, Python instantly hands us a list containing <code>index.html</code>, <code>boolean-logic.html</code>, and the rest, so we can loop through them automatically.</p>
+            </article>
+
+            <article class="card">
+                <h2>Regular Expressions (Regex)</h2>
+                <p>When we migrated our old AI Prompts log into a clean Markdown file, we needed to intelligently extract the dates, prompts, and tasks from the messy HTML tags. We did this using the <code>re</code> (Regex) library.</p>
+                <p>Regex is like the "Ctrl+F" search feature on steroids. We can write a mathematical pattern like <code>&lt;h3&gt;(.*?)&lt;/h3&gt;</code>, which tells Python: "Find any text that is sandwiched between an h3 tag, pull it out, and save it." This allowed us to strip away the HTML and convert our logs into perfect text formatting!</p>
+            </article>
+        </section>
+    </main>
+</body>
+</html>

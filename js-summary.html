@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Summary - CSIT 212 Final Project</title>
+        <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand">CSIT 212 Final Project</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Binary Calculator</a></li>
+            <li><a href="boolean-logic.html">Boolean Logic</a></li>
+            <li><a href="algorithm-visualizer.html">Algorithms</a></li>
+            <li><a href="circuit-builder.html">Circuit Builder</a></li>
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">Languages ▼</a>
+                <div class="dropdown-content">
+                    <a href="html-summary.html">HTML</a>
+                    <a href="css-summary.html">CSS</a>
+                    <a href="js-summary.html">JavaScript</a>
+                    <a href="python-summary.html">Python</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <header class="header">
+            <h1>JavaScript: The Brains of the Operation</h1>
+            <p>JavaScript (JS) is the programming language that brings our website to life. Without JS, the website would just be a static painting. JS allows us to calculate math, drag-and-drop elements, and animate sorting algorithms!</p>
+        </header>
+
+        <section class="educational-content">
+            <article class="card" style="margin-bottom: 2rem;">
+                <h2>Variables: Storing Information</h2>
+                <p>Think of a variable as a labeled box where we can store data to use later. We declare variables using words like <code>let</code> or <code>const</code>.</p>
+                <div class="code-snippet">
+                    <code>let isWiring = false;</code><br>
+                    <code>const workspace = document.getElementById("workspace");</code>
+                </div>
+                <p>In our Circuit Builder, we created a variable called <code>isWiring</code>. We set it to <code>false</code> initially. When a user clicks on an output port, we change the variable to <code>true</code>. The code constantly checks this "box" to know whether or not it should draw an SVG wire following the user's mouse!</p>
+            </article>
+
+            <article class="card" style="margin-bottom: 2rem;">
+                <h2>Conditionals (If/Else Statements)</h2>
+                <p>Conditionals allow our code to make decisions. They are the crossroads of programming. "IF this condition is true, DO this. ELSE, do that."</p>
+                <div class="code-snippet">
+                    <code>if (node.type === 'AND') {</code><br>
+                    <code>&nbsp;&nbsp;return (a === 1 && b === 1) ? 1 : 0;</code><br>
+                    <code>} else if (node.type === 'OR') {</code><br>
+                    <code>&nbsp;&nbsp;return (a === 1 || b === 1) ? 1 : 0;</code><br>
+                    <code>}</code>
+                </div>
+                <p>We used massive conditional blocks (like <code>switch</code> statements) in our Circuit Builder's logic engine. By checking the string text of the <code>node.type</code> variable, the JavaScript engine knows exactly which mathematical Boolean logic to apply to the signals traveling through the wire.</p>
+            </article>
+
+            <article class="card" style="margin-bottom: 2rem;">
+                <h2>The DOM (Document Object Model)</h2>
+                <p>The DOM is how JavaScript talks to HTML. When the browser loads HTML, it converts all the tags into "Objects" that JavaScript can read and modify.</p>
+                <p>By using commands like <code>document.getElementById()</code>, we can grab an HTML element (like our lightbulb image). We can then use JS to change its CSS class, literally making the bulb light up yellow when an algorithm finishes or an AND gate receives two <code>1</code> signals!</p>
+            </article>
+
+            <article class="card">
+                <h2>Arrays and State Machines</h2>
+                <p>An <strong>Array</strong> is a list of data, like <code>[5, 2, 8, 1, 9]</code>. On our Algorithm Visualizer page, we store the heights of all the visual bars inside an Array.</p>
+                <p>To animate the sorting, we used an advanced JS concept called a <strong>Generator State Machine</strong>. Instead of sorting the array instantly, the Generator "pauses" the code after every single swap. This allowed us to build Play, Pause, and Step buttons, slowly revealing the algorithm's thought process step-by-step!</p>
+            </article>
+        </section>
+    </main>
+</body>
+</html>

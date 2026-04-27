@@ -129,6 +129,29 @@ document.addEventListener("DOMContentLoaded", () => {
         "}"
     ];
 
+    const javaCodeDiddy = [
+        "void diddySort(int[] arr) {",
+        "    // Step 1: Remove all elements > 18",
+        "    List<Integer> filtered = new ArrayList<>();",
+        "    for (int x : arr) {",
+        "        if (x <= 18) filtered.add(x);",
+        "    }",
+        "    int[] nArr = filtered.stream().mapToInt(i->i).toArray();",
+        "    ",
+        "    // Step 2: Selection Sort (Smallest first)",
+        "    int n = nArr.length;",
+        "    for (int i = 0; i < n - 1; i++) {",
+        "        int min = i;",
+        "        for (int j = i + 1; j < n; j++) {",
+        "            if (nArr[j] < nArr[min]) min = j;",
+        "        }",
+        "        int temp = nArr[min];",
+        "        nArr[min] = nArr[i];",
+        "        nArr[i] = temp;",
+        "    }",
+        "}"
+    ];
+
     const algorithmDetailsInfo = {
         merge: {
             title: "Merge Sort",
@@ -159,13 +182,19 @@ document.addEventListener("DOMContentLoaded", () => {
             description: "Counting Sort is an integer sorting algorithm that operates by counting the number of objects that possess distinct key values, and calculating positions.",
             timeComplexity: "O(n + k) where n is the number of elements and k is the range of input.",
             useCases: "Extremely fast for sorting arrays where the range of integers is relatively small, such as sorting pixels by color values."
+        },
+        diddy: {
+            title: "Diddy Sort",
+            description: "A unique filtering-based algorithm. It first purges any elements above the value of 18, then performs a Selection Sort on the survivors by repeatedly finding the minimum element.",
+            timeComplexity: "O(n + m²) where n is original size and m is survivors (m <= n).",
+            useCases: "Used in specialized scenarios where values above a certain threshold (18) are considered invalid or 'too big' for the system."
         }
     };
 
     function generateArray(size = 20) {
         array = [];
         for (let i = 0; i < size; i++) {
-            array.push(Math.floor(Math.random() * 230) + 20); // values between 20 and 250
+            array.push(Math.floor(Math.random() * 250) + 5); // values between 5 and 255
         }
         resetVisualizer();
     }
@@ -376,6 +405,49 @@ document.addEventListener("DOMContentLoaded", () => {
         pushStep(arr, 18, [], "Counting Sort complete!");
         pushStep(arr, -1, [], "Done."); // Done
     }
+
+    function runDiddySort() {
+        let arr = [...array];
+        steps = [];
+        pushStep(arr, 0, [], "Starting Diddy Sort.");
+        pushStep(arr, 2, [], "Filtering phase: Checking for elements > 18.");
+        
+        let survivors = [];
+        for (let i = 0; i < arr.length; i++) {
+            pushStep(arr, 4, [i], "Checking element at index " + i, { i: i, value: arr[i] });
+            if (arr[i] <= 18) {
+                survivors.push(arr[i]);
+                pushStep(arr, 5, [i], "Element is <= 18. Keep it!", { value: arr[i] });
+            } else {
+                pushStep(arr, 5, [i], "Element > 18. Removing from system...", { value: arr[i] });
+            }
+        }
+        
+        arr = [...survivors];
+        pushStep(arr, 7, [], "Filtering complete. Survivors: " + arr.length, { count: arr.length });
+        
+        let n = arr.length;
+        pushStep(arr, 10, [], "Starting Selection Sort on remaining elements.", { n: n });
+        for (let i = 0; i < n - 1; i++) {
+            let min_idx = i;
+            pushStep(arr, 12, [i], "Assuming index " + i + " is the minimum.", { i: i, min_idx: min_idx });
+            for (let j = i + 1; j < n; j++) {
+                pushStep(arr, 13, [j, min_idx], "Comparing index " + j + " with current minimum.", { j: j, min_idx: min_idx });
+                if (arr[j] < arr[min_idx]) {
+                    min_idx = j;
+                    pushStep(arr, 14, [j, min_idx], "Found a new minimum!", { min_idx: min_idx });
+                }
+            }
+            pushStep(arr, 16, [i, min_idx], "Swapping minimum into position " + i);
+            let temp = arr[min_idx];
+            arr[min_idx] = arr[i];
+            arr[i] = temp;
+            pushStep(arr, 19, [i, min_idx], "Swap complete.");
+        }
+        
+        pushStep(arr, 20, [], "Diddy Sort complete!");
+        pushStep(arr, -1, [], "Done.");
+    }
     // --- END ALGORITHMS ---
 
     function renderCode() {
@@ -386,6 +458,7 @@ document.addEventListener("DOMContentLoaded", () => {
         else if (algo === 'insertion') codeLines = javaCodeInsertion;
         else if (algo === 'heap') codeLines = javaCodeHeap;
         else if (algo === 'counting') codeLines = javaCodeCounting;
+        else if (algo === 'diddy') codeLines = javaCodeDiddy;
         
         codeContainer.innerHTML = '';
         codeLines.forEach((line, index) => {
@@ -473,6 +546,7 @@ document.addEventListener("DOMContentLoaded", () => {
         else if (algoSelect.value === 'insertion') runInsertionSort();
         else if (algoSelect.value === 'heap') runHeapSort();
         else if (algoSelect.value === 'counting') runCountingSort();
+        else if (algoSelect.value === 'diddy') runDiddySort();
         renderStep();
     }
 

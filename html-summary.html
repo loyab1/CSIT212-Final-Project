@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Summary - CSIT 212 Final Project</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand">CSIT 212 Final Project</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Binary Calculator</a></li>
+            <li><a href="boolean-logic.html">Boolean Logic</a></li>
+            <li><a href="algorithm-visualizer.html">Algorithms</a></li>
+            <li><a href="circuit-builder.html">Circuit Builder</a></li>
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">Languages ▼</a>
+                <div class="dropdown-content">
+                    <a href="html-summary.html">HTML</a>
+                    <a href="css-summary.html">CSS</a>
+                    <a href="js-summary.html">JavaScript</a>
+                    <a href="python-summary.html">Python</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <header class="header">
+            <h1>HTML: The Foundation of the Web</h1>
+            <p>HTML (HyperText Markup Language) provides the raw structure and skeleton for our entire website.</p>
+        </header>
+
+        <section class="educational-content">
+            <article class="card" style="margin-bottom: 2rem;">
+                <h2>What is HTML?</h2>
+                <p>Think of HTML as the framing of a house. Before you can paint the walls (CSS) or wire the electricity (JavaScript), you need to build the rooms. HTML uses a system of <strong>Tags</strong> to define what kind of content is on the screen.</p>
+                <div class="code-snippet">
+                    <code>&lt;h1&gt;This is a Header&lt;/h1&gt;</code><br>
+                    <code>&lt;p&gt;This is a paragraph of text.&lt;/p&gt;</code>
+                </div>
+                <p>A tag is enclosed in angle brackets. Most elements have an opening tag <code>&lt;p&gt;</code> and a closing tag <code>&lt;/p&gt;</code> that wrap around the content.</p>
+            </article>
+
+            <article class="card" style="margin-bottom: 2rem;">
+                <h2>Attributes: Classes and IDs</h2>
+                <p>Tags alone aren't enough. We need to identify specific pieces of our website so we can style them later or interact with them using code. We do this using <strong>Attributes</strong>.</p>
+                <ul>
+                    <li><strong>ID (<code>id="calculator"</code>)</strong>: An ID is unique. It is like a social security number for an HTML element. We used IDs heavily in our Circuit Builder so the JavaScript engine knows exactly which logic gate to connect a wire to.</li>
+                    <li><strong>Class (<code>class="card"</code>)</strong>: A Class is reusable. We used the "card" class throughout this website so that the CSS rules can instantly apply a white background, rounded corners, and a shadow to multiple different boxes at once!</li>
+                </ul>
+            </article>
+
+            <article class="card">
+                <h2>Semantic HTML in Our Project</h2>
+                <p>Instead of making everything a generic box (a <code>&lt;div&gt;</code>), modern HTML uses "Semantic Tags". These are tags that actually describe their meaning to the browser and to screen-readers for accessibility.</p>
+                <ul>
+                    <li><code>&lt;nav&gt;</code>: We used this at the top of every page to wrap our navigation links.</li>
+                    <li><code>&lt;main&gt;</code>: We used this to wrap the core content of the page, separating it from the headers and footers.</li>
+                    <li><code>&lt;section&gt;</code> and <code>&lt;article&gt;</code>: We used these to logically group the algorithm descriptions and the logic gate truth tables.</li>
+                </ul>
+                <p>By using semantic HTML, our code is cleaner, easier to read, and better for Search Engine Optimization (SEO).</p>
+            </article>
+        </section>
+    </main>
+</body>
+</html>

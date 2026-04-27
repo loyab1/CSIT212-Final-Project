@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnPrev = document.getElementById("btnPrev");
     const btnNext = document.getElementById("btnNext");
     const btnPlay = document.getElementById("btnPlay");
+    const explanationText = document.getElementById("explanationText");
+    const variableList = document.getElementById("variableList");
 
     let array = [];
     let steps = [];
@@ -168,11 +170,13 @@ document.addEventListener("DOMContentLoaded", () => {
         resetVisualizer();
     }
 
-    function pushStep(arr, lineId, activeIndices = []) {
+    function pushStep(arr, lineId, activeIndices = [], explanation = "", vars = {}) {
         steps.push({
             array: [...arr],
             lineId: lineId,
-            activeIndices: activeIndices
+            activeIndices: activeIndices,
+            explanation: explanation,
+            vars: vars
         });
     }
 
@@ -182,53 +186,53 @@ document.addEventListener("DOMContentLoaded", () => {
         steps = [];
         
         function merge(l, m, r) {
-            pushStep(arr, 9, [l, m, r]);
-            let n1 = m - l + 1; pushStep(arr, 10);
-            let n2 = r - m; pushStep(arr, 11);
-            let L = new Array(n1); pushStep(arr, 12);
-            let R = new Array(n2); pushStep(arr, 13);
+            pushStep(arr, 9, [l, m, r], "Merging sub-arrays.", { l: l, m: m, r: r });
+            let n1 = m - l + 1; pushStep(arr, 10, [], "Size of left sub-array.", { n1: n1 });
+            let n2 = r - m; pushStep(arr, 11, [], "Size of right sub-array.", { n2: n2 });
+            let L = new Array(n1); pushStep(arr, 12, [], "Initialize temporary left array.");
+            let R = new Array(n2); pushStep(arr, 13, [], "Initialize temporary right array.");
             
             for (let i = 0; i < n1; ++i) L[i] = arr[l + i];
-            pushStep(arr, 14);
+            pushStep(arr, 14, [l, m], "Copy data to temporary left array.");
             for (let j = 0; j < n2; ++j) R[j] = arr[m + 1 + j];
-            pushStep(arr, 15);
+            pushStep(arr, 15, [m + 1, r], "Copy data to temporary right array.");
             
-            let i = 0, j = 0, k = l; pushStep(arr, 16);
+            let i = 0, j = 0, k = l; pushStep(arr, 16, [k], "Initialize indices for merging.", { i: 0, j: 0, k: l });
             while (i < n1 && j < n2) {
-                pushStep(arr, 17, [k]);
-                pushStep(arr, 18, [k]);
+                pushStep(arr, 17, [k], "Comparing elements from L and R.", { i: i, j: j, k: k });
+                pushStep(arr, 18, [k], "Checking: is L[i] <= R[j]?", { "L[i]": L[i], "R[j]": R[j] });
                 if (L[i] <= R[j]) {
                     arr[k] = L[i]; i++;
-                    pushStep(arr, 19, [k]);
+                    pushStep(arr, 19, [k], "L[i] is smaller. Copying to main array.", { i: i, k: k });
                 } else {
                     arr[k] = R[j]; j++;
-                    pushStep(arr, 21, [k]);
+                    pushStep(arr, 21, [k], "R[j] is smaller. Copying to main array.", { j: j, k: k });
                 }
                 k++;
-                pushStep(arr, 23, [k]);
+                pushStep(arr, 23, [k], "Move to next position in main array.", { k: k });
             }
-            while (i < n1) { arr[k] = L[i]; i++; k++; pushStep(arr, 25, [k-1]); }
-            while (j < n2) { arr[k] = R[j]; j++; k++; pushStep(arr, 26, [k-1]); }
-            pushStep(arr, 27);
+            while (i < n1) { arr[k] = L[i]; i++; k++; pushStep(arr, 25, [k-1], "Copying remaining elements from L.", { i: i, k: k }); }
+            while (j < n2) { arr[k] = R[j]; j++; k++; pushStep(arr, 26, [k-1], "Copying remaining elements from R.", { j: j, k: k }); }
+            pushStep(arr, 27, [], "Merge complete for this section.");
         }
 
         function mergeSort(l, r) {
-            pushStep(arr, 0, [l, r]);
-            pushStep(arr, 1);
+            pushStep(arr, 0, [l, r], "Calling MergeSort on sub-array.", { l: l, r: r });
+            pushStep(arr, 1, [], "Check: is l < r?");
             if (l < r) {
-                let m = Math.floor(l + (r - l) / 2); pushStep(arr, 2, [m]);
-                pushStep(arr, 3);
+                let m = Math.floor(l + (r - l) / 2); pushStep(arr, 2, [m], "Calculating middle point.", { m: m });
+                pushStep(arr, 3, [], "Sort first half.");
                 mergeSort(l, m);
-                pushStep(arr, 4);
+                pushStep(arr, 4, [], "Sort second half.");
                 mergeSort(m + 1, r);
-                pushStep(arr, 5);
+                pushStep(arr, 5, [], "Merge the sorted halves.");
                 merge(l, m, r);
             }
-            pushStep(arr, 6);
+            pushStep(arr, 6, [], "MergeSort call finished.");
         }
 
         mergeSort(0, arr.length - 1);
-        pushStep(arr, -1); // Done
+        pushStep(arr, -1, [], "Merge Sort completed!"); // Done
     }
 
     function runQuickSort() {
@@ -236,65 +240,65 @@ document.addEventListener("DOMContentLoaded", () => {
         steps = [];
 
         function partition(low, high) {
-            pushStep(arr, 8, [low, high]);
-            let pivot = arr[high]; pushStep(arr, 9, [high]);
-            let i = (low - 1); pushStep(arr, 10);
+            pushStep(arr, 8, [low, high], "Partitioning the sub-array.", { low: low, high: high });
+            let pivot = arr[high]; pushStep(arr, 9, [high], "Picking the last element as the pivot.", { low: low, high: high, pivot: pivot });
+            let i = (low - 1); pushStep(arr, 10, [], "i is the index of the smaller element.", { low: low, high: high, pivot: pivot, i: i });
             
             for (let j = low; j < high; j++) {
-                pushStep(arr, 11, [j, high]);
-                pushStep(arr, 12, [j, high]);
+                pushStep(arr, 11, [j, high], "Comparing current element arr[j] with pivot.", { j: j, pivot: pivot, i: i });
+                pushStep(arr, 12, [j, high], "Checking: is arr[j] <= pivot?", { j: j, "arr[j]": arr[j], pivot: pivot });
                 if (arr[j] <= pivot) {
-                    i++; pushStep(arr, 13, [i]);
-                    let temp = arr[i]; pushStep(arr, 14, [i]);
-                    arr[i] = arr[j]; pushStep(arr, 15, [i, j]);
-                    arr[j] = temp; pushStep(arr, 16, [i, j]);
+                    i++; pushStep(arr, 13, [i], "Found an element <= pivot. Incrementing i.", { i: i, j: j });
+                    let temp = arr[i]; pushStep(arr, 14, [i], "Swapping elements...", { i: i, j: j });
+                    arr[i] = arr[j]; pushStep(arr, 15, [i, j], "Swapping elements: moving smaller element to the left.", { i: i, j: j });
+                    arr[j] = temp; pushStep(arr, 16, [i, j], "Swap complete.", { i: i, j: j });
                 }
             }
-            let temp = arr[i + 1]; pushStep(arr, 19, [i + 1]);
-            arr[i + 1] = arr[high]; pushStep(arr, 20, [i + 1, high]);
-            arr[high] = temp; pushStep(arr, 21, [i + 1, high]);
-            pushStep(arr, 22, [i + 1]);
+            let temp = arr[i + 1]; pushStep(arr, 19, [i + 1], "Finally, moving pivot to its correct sorted position.", { i: i, "i+1": i+1, pivot: pivot });
+            arr[i + 1] = arr[high]; pushStep(arr, 20, [i + 1, high], "Moving pivot...", { i: i, "i+1": i+1 });
+            arr[high] = temp; pushStep(arr, 21, [i + 1, high], "Pivot is now at its final sorted position.", { "sorted_at": i+1 });
+            pushStep(arr, 22, [i + 1], "Returning the partition index.", { "pi": i+1 });
             return i + 1;
         }
 
         function quickSort(low, high) {
-            pushStep(arr, 0, [low, high]);
-            pushStep(arr, 1);
+            pushStep(arr, 0, [low, high], "Calling QuickSort on sub-array.", { low: low, high: high });
+            pushStep(arr, 1, [], "Check: is low < high?", { low: low, high: high });
             if (low < high) {
-                pushStep(arr, 2);
+                pushStep(arr, 2, [], "Yes, low < high. Partitioning...");
                 let pi = partition(low, high);
-                pushStep(arr, 3);
+                pushStep(arr, 3, [], "Partitioning complete. Sorting left half.", { low: low, "pi-1": pi-1 });
                 quickSort(low, pi - 1);
-                pushStep(arr, 4);
+                pushStep(arr, 4, [], "Left half sorted. Sorting right half.", { "pi+1": pi+1, high: high });
                 quickSort(pi + 1, high);
             }
-            pushStep(arr, 5);
+            pushStep(arr, 5, [], "QuickSort call finished.");
         }
 
         if(arr.length > 0) {
             quickSort(0, arr.length - 1);
         }
-        pushStep(arr, -1); // Done
+        pushStep(arr, -1, [], "Quick Sort completed!"); // Done
     }
 
     function runInsertionSort() {
         let arr = [...array];
         steps = [];
-        pushStep(arr, 0);
-        let n = arr.length; pushStep(arr, 1);
+        pushStep(arr, 0, [], "Starting Insertion Sort.");
+        let n = arr.length; pushStep(arr, 1, [], "Initialize n as the array length.", { n: n });
         for (let i = 1; i < n; ++i) {
-            pushStep(arr, 2, [i]);
-            let key = arr[i]; pushStep(arr, 3, [i]);
-            let j = i - 1; pushStep(arr, 4, [j]);
+            pushStep(arr, 2, [i], "Main loop: picking element at index i.", { i: i, n: n });
+            let key = arr[i]; pushStep(arr, 3, [i], "Set key = arr[i]. We will find the correct spot for this key.", { i: i, key: key });
+            let j = i - 1; pushStep(arr, 4, [j], "Initialize j to the index before i.", { i: i, key: key, j: j });
             while (j >= 0 && arr[j] > key) {
-                pushStep(arr, 5, [j]);
-                arr[j + 1] = arr[j]; pushStep(arr, 6, [j + 1, j]);
-                j = j - 1; pushStep(arr, 7, [j]);
+                pushStep(arr, 5, [j, j + 1], "Compare arr[j] with key. Since arr[j] > key, we shift arr[j] to the right.", { i: i, key: key, j: j, "arr[j]": arr[j] });
+                arr[j + 1] = arr[j]; pushStep(arr, 6, [j + 1, j], "Shifted arr[j] to arr[j+1].", { i: i, key: key, j: j });
+                j = j - 1; pushStep(arr, 7, [j], "Decrement j to check the next element to the left.", { i: i, key: key, j: j });
             }
-            pushStep(arr, 5, [j]);
-            arr[j + 1] = key; pushStep(arr, 9, [j + 1]);
+            pushStep(arr, 5, [j], "Condition j >= 0 && arr[j] > key is now false. Found the insertion spot.", { i: i, key: key, j: j });
+            arr[j + 1] = key; pushStep(arr, 9, [j + 1], "Insert key at its correct position arr[j+1].", { i: i, key: key, j: j, "j+1": j+1 });
         }
-        pushStep(arr, 11);
+        pushStep(arr, 11, [], "Array is now sorted using Insertion Sort!");
         pushStep(arr, -1); // Done
     }
 
@@ -303,64 +307,74 @@ document.addEventListener("DOMContentLoaded", () => {
         steps = [];
 
         function heapify(n, i) {
-            pushStep(arr, 9, [i]);
-            let largest = i, l = 2 * i + 1, r = 2 * i + 2; pushStep(arr, 10, [largest, l, r]);
-            if (l < n && arr[l] > arr[largest]) largest = l; pushStep(arr, 11, [l, largest]);
-            if (r < n && arr[r] > arr[largest]) largest = r; pushStep(arr, 12, [r, largest]);
-            pushStep(arr, 13, [largest]);
-            if (largest != i) {
-                let swap = arr[i]; arr[i] = arr[largest]; arr[largest] = swap; pushStep(arr, 14, [i, largest]);
-                heapify(n, largest); pushStep(arr, 15);
+            pushStep(arr, 9, [i], "Heapifying sub-tree.", { n: n, i: i });
+            let largest = i, l = 2 * i + 1, r = 2 * i + 2; pushStep(arr, 10, [largest, l, r], "Initialize largest as root and calculate children.", { largest: largest, l: l, r: r });
+            if (l < n && arr[l] > arr[largest]) {
+                largest = l; pushStep(arr, 11, [l, largest], "Left child is larger than current largest.", { largest: largest });
+            } else {
+                pushStep(arr, 11, [l, largest], "Left child is not larger.");
             }
-            pushStep(arr, 16);
+            if (r < n && arr[r] > arr[largest]) {
+                largest = r; pushStep(arr, 12, [r, largest], "Right child is larger than current largest.", { largest: largest });
+            } else {
+                pushStep(arr, 12, [r, largest], "Right child is not larger.");
+            }
+            pushStep(arr, 13, [largest, i], "Checking: is largest still root?", { largest: largest, i: i });
+            if (largest != i) {
+                let swap = arr[i]; arr[i] = arr[largest]; arr[largest] = swap; pushStep(arr, 14, [i, largest], "Root is not largest. Swapping with largest child.", { i: i, largest: largest });
+                heapify(n, largest); pushStep(arr, 15, [], "Recursively heapifying the affected sub-tree.");
+            }
+            pushStep(arr, 16, [], "Heapify complete.");
         }
 
-        pushStep(arr, 0);
-        let n = arr.length; pushStep(arr, 1);
+        pushStep(arr, 0, [], "Starting Heap Sort.");
+        let n = arr.length; pushStep(arr, 1, [], "Initialize n.", { n: n });
         for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
-            pushStep(arr, 2, [i]);
-            heapify(n, i); pushStep(arr, 3, [i]);
+            pushStep(arr, 2, [i], "Phase 1: Building max heap.", { i: i });
+            heapify(n, i); pushStep(arr, 3, [i], "Root built.");
         }
         for (let i = n - 1; i > 0; i--) {
-            pushStep(arr, 4, [i]);
-            let temp = arr[0]; arr[0] = arr[i]; arr[i] = temp; pushStep(arr, 5, [0, i]);
-            heapify(i, 0); pushStep(arr, 6);
+            pushStep(arr, 4, [i], "Phase 2: Extracting elements from heap.", { i: i });
+            let temp = arr[0]; arr[0] = arr[i]; arr[i] = temp; pushStep(arr, 5, [0, i], "Move current root to end.", { i: i });
+            heapify(i, 0); pushStep(arr, 6, [], "Heapifying the reduced heap.");
         }
-        pushStep(arr, 8);
-        pushStep(arr, -1); // Done
+        pushStep(arr, 8, [], "Array is now sorted using Heap Sort!");
+        pushStep(arr, -1, [], "Heap Sort completed!"); // Done
     }
 
     function runCountingSort() {
         let arr = [...array];
         steps = [];
-        pushStep(arr, 0);
-        let n = arr.length; pushStep(arr, 1);
-        let max = arr[0]; pushStep(arr, 2);
+        pushStep(arr, 0, [], "Starting Counting Sort.");
+        let n = arr.length; pushStep(arr, 1, [], "Initialize n.", { n: n });
+        let max = arr[0]; pushStep(arr, 2, [0], "Initialize max with the first element.", { max: max });
         for (let i = 1; i < n; i++) {
-            pushStep(arr, 3, [i]);
-            if (arr[i] > max) max = arr[i]; pushStep(arr, 4, [i]);
+            pushStep(arr, 3, [i], "Scan for the maximum value in the array.", { i: i, max: max });
+            if (arr[i] > max) {
+                max = arr[i]; pushStep(arr, 4, [i], "New max found!", { max: max });
+            }
         }
-        let count = new Array(max + 1).fill(0); pushStep(arr, 5);
+        let count = new Array(max + 1).fill(0); pushStep(arr, 5, [], "Create count array of size max + 1.", { size: max + 1 });
         for (let i = 0; i < n; i++) {
-            pushStep(arr, 6, [i]);
-            count[arr[i]]++; pushStep(arr, 7, [i]);
+            pushStep(arr, 6, [i], "Count frequencies of each element.", { i: i, "arr[i]": arr[i] });
+            count[arr[i]]++; pushStep(arr, 7, [i], "Increment count for this value.", { "value": arr[i], "count": count[arr[i]] });
         }
         for (let i = 1; i <= max; i++) {
-            pushStep(arr, 8);
-            count[i] += count[i - 1]; pushStep(arr, 9);
+            pushStep(arr, 8, [], "Update count array to store cumulative sums.", { i: i });
+            count[i] += count[i - 1]; pushStep(arr, 9, [], "Accumulate: count[i] = count[i] + count[i-1]", { i: i, "count[i]": count[i] });
         }
-        let output = new Array(n); pushStep(arr, 10);
+        let output = new Array(n); pushStep(arr, 10, [], "Initialize output array.", { n: n });
         for (let i = n - 1; i >= 0; i--) {
-            pushStep(arr, 11, [i]);
-            output[count[arr[i]] - 1] = arr[i]; pushStep(arr, 12, [i]);
-            count[arr[i]]--; pushStep(arr, 13, [i]);
+            pushStep(arr, 11, [i], "Build output array using cumulative counts.", { i: i, "arr[i]": arr[i] });
+            output[count[arr[i]] - 1] = arr[i]; pushStep(arr, 12, [i], "Place element in its correct output position.", { "arr[i]": arr[i], "index": count[arr[i]] - 1 });
+            count[arr[i]]--; pushStep(arr, 13, [i], "Decrement count for this value.", { "value": arr[i], "remaining_count": count[arr[i]] });
         }
         for (let i = 0; i < n; i++) {
-            pushStep(arr, 15, [i]);
-            arr[i] = output[i]; pushStep(arr, 16, [i]);
+            pushStep(arr, 15, [i], "Copy sorted elements back to original array.", { i: i });
+            arr[i] = output[i]; pushStep(arr, 16, [i], "Copied element from output array.", { "arr[i]": arr[i] });
         }
-        pushStep(arr, 18);
-        pushStep(arr, -1); // Done
+        pushStep(arr, 18, [], "Counting Sort complete!");
+        pushStep(arr, -1, [], "Done."); // Done
     }
     // --- END ALGORITHMS ---
 
@@ -417,6 +431,30 @@ document.addEventListener("DOMContentLoaded", () => {
             if (activeLine) {
                 activeLine.classList.add("active");
             }
+        }
+
+        // Update Explanation
+        if (step.explanation) {
+            explanationText.textContent = step.explanation;
+        } else {
+            explanationText.textContent = "Processing algorithm steps...";
+        }
+
+        // Update Variable Watch
+        variableList.innerHTML = '';
+        if (step.vars) {
+            Object.entries(step.vars).forEach(([key, val]) => {
+                const varDiv = document.createElement("div");
+                varDiv.style.padding = "4px 8px";
+                varDiv.style.backgroundColor = "#374151";
+                varDiv.style.borderRadius = "4px";
+                varDiv.style.color = "#fff";
+                varDiv.innerHTML = `<span style="color: #93c5fd;">${key}:</span> ${val}`;
+                variableList.appendChild(varDiv);
+            });
+        }
+        if (variableList.innerHTML === '') {
+            variableList.innerHTML = '<span style="color: #6b7280; font-style: italic;">No active local variables</span>';
         }
 
         btnPrev.disabled = currentStep === 0;
